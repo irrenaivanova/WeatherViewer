@@ -1,15 +1,31 @@
+using Weather.API.Models;
+using Weather.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.Configure<WeatherSettings>(
+	builder.Configuration.GetSection("OpenWeather"));
+builder.Services.AddHttpClient();
+builder.Services.AddSingleton<WeatherService>();
+
+builder.Services.AddCors(options =>
+{
+	var frontendUrl = builder.Configuration["Frontend:AllowedOrigin"]!;
+	options.AddPolicy("AllowFrontend", policy =>
+	{
+		policy.WithOrigins(frontendUrl)
+			  .AllowAnyMethod()
+			  .AllowAnyHeader();
+	});
+});
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+app.UseCors("AllowFrontend");
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
