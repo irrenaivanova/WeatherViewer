@@ -6,7 +6,7 @@ Weather Viewer is a minimal but functional weather application built with **.NET
 
 ---
 
-## 🖥 Project Architecture
+## Project Architecture
 
 The system consists of three main parts:
 
@@ -17,15 +17,16 @@ The system consists of three main parts:
    - Network configured with NAT + Port Forwarding, so the API is accessible from the host machine.
 
 2. **.NET 8 Web API (WeatherApi)**
+
    - Endpoint: `GET /weather?lat={lat}&lon={lon}` - Returns current weather for given coordinates.
    - Health check endpoint: `GET /health`
      > Implementation note: Health check calls the OpenWeather API using Sofia coordinates.
    - API key stored in `appsettings.json` (not exposed in code).
    - Minimal validation - Returns **HTTP 400** for invalid coordinates.
-
-- Returns simplified JSON.
+   - Returns simplified JSON.
 
 3. **React Frontend**
+
    - Built with Vite + React.
    - Leaflet map component displays current location (via browser geolocation) or falls back to Sofia if denied.
    - Clicking or dragging the map marker calls the API and displays weather data.
@@ -49,8 +50,8 @@ The system consists of three main parts:
   export Frontend__AllowedOrigin="http://localhost:5173"
   ```
 
-<p align="left">
-<img src="Screenshot1.png" alt="Screenshot"  width="600">
+<p align="center">
+<img src="Screenshot1.png" alt="Screenshot"  width="700">
 </p>
 
 ## Future Improvements
@@ -63,21 +64,21 @@ This project is currently minimalistic, leaving plenty of opportunities for enha
 - Add a **search bar** to allow users to find cities easily.
 - Display the **place name** alongside latitude and longitude when positioning map pins.
 
-## 🗺️ Map
+## Map
 
 - Introduce **JWT-based authentication** to allow users to **save and manage favorite locations**.
 - Support **multiple map pins**, each displaying relevant weather information.
 
 ---
 
-## 🏗️ Technical Enhancements
+## Technical Enhancements
 
 - **Dockerize** the application, including both the React frontend and .NET API backend.
 - Deploy the application to **cloud platforms** such as Azure or AWS for public access.
 
 ---
 
-## 🔐 Performance & Reliability
+## Performance & Reliability
 
 - **Cache weather results** to reduce unnecessary calls to the OpenWeather API.
 - Add **unit and integration tests** for the `WeatherService` to ensure reliability.
