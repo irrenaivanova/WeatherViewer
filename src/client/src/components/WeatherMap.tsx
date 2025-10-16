@@ -106,7 +106,6 @@ export default function WeatherMap() {
             <img
               src={`https://openweathermap.org/img/wn/${weather.icon}@2x.png`}
               alt="weather icon"
-              style={{ marginTop: "0.5rem" }}
             />
           </div>
         )}
